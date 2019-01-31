@@ -54,8 +54,13 @@
                 </select>
                 </div>
                 <p class="col-md-12">Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button id='ada' class="btn btn-primary" onclick="ac()">Add New Actor</button>
+                    </div>
+                </div>
                 <hr>
-                <div>
+                <div id="adac" style="display:none;">
                     <div class="row">
                         <label class="col-md-12">Add New Actor:</label>
                         <label class="col-md-2">Name:</label>
@@ -89,7 +94,12 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div>
+                <div class="row">
+                        <div class="col-md-12">
+                            <button id='adpp' class="btn btn-primary" onclick="ap()">Add New Producer</button>
+                        </div>
+                    </div>
+                <div id="adp" style="display:none;">
                         <div class="row">
                             <label class="col-md-12">Add New Producer:</label>
                             <label class="col-md-2">Name:</label>
@@ -162,6 +172,14 @@
                     });
                 });
             });
+            function ac(){
+                document.getElementById("ada").style.display = "none";
+                document.getElementById("adac").style.display = "block";
+            }
+            function ap(){
+                document.getElementById("adpp").style.display = "none";
+                document.getElementById("adp").style.display = "block";
+            }
         </script>
     </body>
 
