@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Movies</title>
+    </head>
+    <body>
+        {% for i in prod %}
+            <div style="display:inline-block;">
+                <div style="width:30%;max-height: 200px;">
+                    <img src="/static/images/{{i[3]}}" style="max-height:200px;width100%;">
+                </div>
+                <div style="width:70%;">
+                    Name: {{i[0]}}<br>
+                    Year of Release: {{i[1]}}<br>
+                    Bio: {{i[2]}}
+                    <br>
+                    <br>
+                    Actors:
+                    {% for n in i[5] %}
+                        {{n}} <br>
+                    {% endfor %}
+                    Producer: {{i[6][0]}}
+                </div>
+            </div>
+            <br><br><br>
+        {% endfor %}
+    </body>
+</html>

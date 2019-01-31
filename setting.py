@@ -41,7 +41,7 @@ def getmovies():
   print(prod)
   cur.close()
   con.close()
-  return ("<h1>Welcome</h1>")
+  return render_template("movies.html",prod = prod)
 
 @app.route("/addmovie")
 def addmovie():
