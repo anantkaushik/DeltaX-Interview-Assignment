@@ -6,29 +6,29 @@
     <body>
         <form action="/addmovietodb" method="POST" enctype="multipart/form-data">
             <label>Name:</label>
-            <input type="text" name="name">
+            <input type="text" name="name" required>
             <label>Year of Release:</label>
-            <input type="number" name="yor">
+            <input type="number" name="yor" required>
             <label>Plot:</label>
-            <textarea name="plot"></textarea>
+            <textarea name="plot" required></textarea>
             <br>
             <br>
             <label>Actors:</label>
-            <select name="actors" multiple size="2">
+            <select name="actors" multiple size="2" required>
                 {% for i in actor %}
                     <option value="{{i[1]}}">{{i[0]}}</option>
                 {% endfor %}
             </select>
             <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
             <label>Producer:</label>
-            <select name="producers">
+            <select name="producers" required>
                 {% for i in prod %}
                     <option value="{{i[1]}}">{{i[0]}}</option>
                 {% endfor %}
             </select>
             <br>
             <label>Poster</label>
-            <input type="file" name="file" accept="image/*">
+            <input type="file" name="file" accept="image/*" required>
             <br>
             <input type="submit">
         </form>

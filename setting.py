@@ -46,7 +46,7 @@ def addmovietodb():
     name = request.form['name']
     yor = request.form['yor']
     plot = request.form['plot']
-    actor = request.form['actors']
+    actor = request.form.getlist('actors')
     producers = request.form['producers']
 
     target = os.path.join(APP_ROOT, 'static/images')
@@ -68,8 +68,45 @@ def addmovietodb():
         print("Accept incoming file:", filename)
         print("Save it to:", destination)
         upload.save(destination)
-    print(name,yor,plot,actor,producers)
+    print(name,yor,plot,actor,producers,filename)
+    actor = str(actor)
+    con=sql.connect("static/imdb.db")
+    cur=con.cursor()
+    cur.execute("INSERT INTO movies (name,yearofrelease,plot,poster,actors,producers)VALUES (?,?,?,?,?,?)",(name,yor,plot,filename,actor,producers) ) # fetching producers details
+    con.commit()
+    cur.close()
+    con.close()
     return redirect("/addmovie")
+
+@app.route("/addactor", methods = ['POST'])
+def addactor():
+  if request.method == "POST":
+    name = request.form['namea']
+    yor = request.form['sexa']
+    plot = request.form['doba']
+    producers = request.form['bioa']
+    con=sql.connect("static/imdb.db")
+    cur=con.cursor()
+    cur.execute("INSERT INTO actors (name,sex,DOB,Bio)VALUES (?,?,?,?)",(name,sex,dob,bio)) 
+    con.commit()
+    cur.close()
+    con.close()
+    return redirect("/")
+
+@app.route("/addproducer", methods = ['POST'])
+def addproducer():
+  if request.method == "POST":
+    name = request.form['namep']
+    yor = request.form['sexp']
+    plot = request.form['dobp']
+    producers = request.form['biop']
+    con=sql.connect("static/imdb.db")
+    cur=con.cursor()
+    cur.execute("INSERT INTO producers (name,sex,DOB,Bio)VALUES (?,?,?,?)",(name,sex,dob,bio)) 
+    con.commit()
+    cur.close()
+    con.close()
+    return redirect("/")
 
 if __name__=="__main__":
 	app.run(debug=True,port=4000)
