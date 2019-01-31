@@ -93,7 +93,7 @@ def addmovietodb():
     con.commit()
     cur.close()
     con.close()
-    return redirect("/addmovie")
+    return redirect("/movies")
 
 @app.route('/addActor', methods=['POST'])       #background AJAX function
 def addActor():

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)http://127.0.0.1:4000/addmovie -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Add Movie</title>
+        <script type="text/javascript" src="./Add Movie_files/jquery-1.9.0.js"></script>
+        <style>
+            header{
+                width: 100%;
+                background-color: black;
+            }
+        </style>
+    <style type="text/css"></style></head>
+    <body style="zoom: 1;">
+        <header>
+
+        </header>
+        <form action="http://127.0.0.1:4000/addmovietodb" method="POST" enctype="multipart/form-data">
+            <label>Name:</label>
+            <input type="text" name="name" required="">
+            <label>Year of Release:</label>
+            <input type="number" name="yor" required="">
+            <label>Plot:</label>
+            <textarea name="plot" required=""></textarea>
+            <br>
+            <br>
+            <label>Actors:</label>
+            <select name="actors" multiple="" size="4" required="" id="actorlist">
+                
+                    <option value="1">Jason Momoa</option>
+                
+                    <option value="2">Amber Heard</option>
+                
+                    <option value="3">Anant</option>
+                
+                    <option value="4">ftyf</option>
+                
+            </select>
+            <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+            <hr>
+            <div>
+                <h2>Add actor</h2>
+                <input type="text" id="actorname" name="actorname">
+                <select name="sex" id="sex">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                </select>
+                <input type="text" id="dob" name="dob" class="form-control">
+                <input type="text" id="bio" name="bio" class="form-control">
+                <button id="mybutton">ADD</button>
+            </div>
+            <hr>
+            <label>Producer:</label>
+            <select name="producers" required="" id="prodlist">
+                
+                    <option value="1">James Wan</option>
+                
+                    <option value="2">rana</option>
+                
+            </select>
+            <hr>
+            <div>
+                <h2>Add Producer</h2>
+                <input type="text" id="namep" name="namep">
+                <select name="sexp" id="sexp">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <input type="text" id="dobp" name="dobp" class="form-control">
+                <input type="text" id="biop" name="biop" class="form-control">
+                <button id="prodmybutton">ADD</button>
+            </div>
+            <hr>
+            <br>
+            <label>Poster</label>
+            <input type="file" name="file" accept="image/*" required="">
+            <br>
+            <input type="submit">
+        </form>
+
+        <script type="text/javascript">
+            $(function(){
+                $('#mybutton').click(function(){
+                    $.ajax({
+                    url: '/addActor',
+                    data: $('#actorname,#sex,#dob,#bio').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        $('#actorname').val("");$('#sex').val("");$('#dob').val("");$('#bio').val("");
+                        console.log($.parseJSON(response));
+                        acID = $.parseJSON(response).actorID
+                        acname = $.parseJSON(response).actorName
+                        $('#actorlist').append('<option value='+acID+'>'+acname+'</option>');
+                        alert('Actor Added');
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                    });
+                });
+
+                $('#prodmybutton').click(function(){
+                    $.ajax({
+                    url: '/addproducer',
+                    data: $('#namep,#sexp,#dobp,#biop').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        $('#namep').val("");$('#sexp').val("");$('#dobp').val("");$('#biop').val("");
+                        console.log($.parseJSON(response));
+                        pID = $.parseJSON(response).prodID
+                        pname = $.parseJSON(response).prodName
+                        $('#prodlist').append('<option value='+pID+'>'+pname+'</option>');
+                        alert('Producer Added');
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                    });
+                });
+            });
+        </script>
+    
+
+</body></html>
