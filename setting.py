@@ -124,8 +124,9 @@ def addActor():
     sex = request.form['sex']
     dob = request.form['dob']
     bio = request.form['bio']
-    if not actorname or not sex or not dob or not bio:
-      return json.dumps({'status':"Value Missing"})
+    if actorname == "" or sex == "" or dob == "" or bio == "":
+      print(actorname=="")
+      return json.dumps({'status': 500})
     conn = sql.connect('static/imdb.db')
     cur = conn.cursor()
     cur.execute("INSERT INTO actors (name, sex, DOB, Bio) VALUES (?,?,?,?)",
