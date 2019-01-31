@@ -2,27 +2,53 @@
 <html>
     <head>
         <title>Movies</title>
+        <script type="text/javascript" src="static/jquery-1.9.0.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <style>
+            .row{
+                margin-top: 5px;
+                margin-left: 0;
+            }
+            .col-md-12,.col-md-2{
+                padding: 0;
+            }
+        </style>
     </head>
     <body>
-        {% for i in prod %}
-            <div style="display:inline-block;">
-                <div style="width:30%;max-height: 200px;">
-                    <img src="/static/images/{{i[3]}}" style="max-height:200px;width100%;">
+        <nav class="navbar navbar-default" style="background-color:black;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                <a class="navbar-brand" href="#">IMDb</a>
                 </div>
-                <div style="width:70%;">
-                    Name: {{i[0]}}<br>
-                    Year of Release: {{i[1]}}<br>
-                    Bio: {{i[2]}}
-                    <br>
-                    <br>
-                    Actors:
-                    {% for n in i[5] %}
-                        {{n}} <br>
-                    {% endfor %}
-                    Producer: {{i[6][0]}}
-                </div>
+                <ul class="nav navbar-nav">
+                <li class="active"><a href="/movies" style="color:black;background-color: white">Movies List</a></li>
+                <li><a href="/addmovie" style="color:white;">Add Movie</a></li>
+                </ul>
             </div>
-            <br><br><br>
-        {% endfor %}
+        </nav>
+        <div class="container">
+            {% for i in prod %}
+                <div class="row">
+                    <img src="/static/images/{{i[3]}}" class="col-md-3" style="max-height:300px;">
+                    <div class="col-md-9">
+                        <label>Name: </label> {{i[0]}}
+                        Year of Release: {{i[1]}}<br>
+                        Bio: {{i[2]}}
+                        <br>
+                        <br>
+                        Actors:
+                        {% for n in i[5] %}
+                            {{n}} <br>
+                        {% endfor %}
+                        Producer: {{i[6][0]}}
+                    </div>
+                </div>
+                <br><br><br>
+            {% endfor %}
+        </div>
     </body>
 </html>
