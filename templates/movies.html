@@ -8,20 +8,17 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <style>
             .row{
                 margin-top: 5px;
                 margin-left: 0;
             }
-            .col-md-12,.col-md-2{
+            .col-md-12,.col-md-2,.col-md-1,.col-md-10,.col-md-11{
                 padding: 0;
             }
-            .edit{
-                color: blue;
-            }
             .edit:hover{
-                cursor: pointer; 
-                text-decoration: underline;
+                cursor: pointer;
             }
         </style>
     </head>
@@ -42,19 +39,29 @@
                 <div class="row" id="{{i[4]}}">
                     <img src="/static/images/{{i[3]}}" class="col-md-3" style="max-height:300px;">
                     <div class="col-md-9">
-                        Name: <p id="cname{{i[4]}}">{{i[0]}}</p>&emsp;<p class="edit" id="name{{i[4]}}">edit</p><br>
-                    Year of Release: <p id="cyor{{i[4]}}">{{i[1]}}&emsp;<p class="edit" id="yor{{i[4]}}">edit</p><br>
-                    Bio: <p id="cbio{{i[4]}}">{{i[2]}}</p>&emsp;<p class="edit" id="bio{{i[4]}}">edit</p>
-                    <br>
-                    <br>
-                    Actors:
-                    {% for n in i[5] %}
-                        {{n}} <br>
-                    {% endfor %}
-                    Producer: {{i[6][0]}}
+                    <div class="row">
+                        <label class="col-md-1"> Name: </label><p id="cname{{i[4]}}" class="col-md-10">{{i[0]}}</p><p class="edit col-md-1" id="name{{i[4]}}"><i class="material-icons">&#xe22b;</i></p><br>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-1">Year of Release: </label><p id="cyor{{i[4]}}" class="col-md-10">{{i[1]}}<p class="edit col-md-1" id="yor{{i[4]}}"><i class="material-icons">&#xe22b;</i></p><br>
+                    </div>
+                        <div class="row">
+                        <label class="col-md-1">Plot: </label><p id="cbio{{i[4]}}" class="col-md-10">{{i[2]}}</p><p class="edit col-md-1" id="bio{{i[4]}}"><i class="material-icons">&#xe22b;</i></p>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-1">Actors: </label>
+                        <div class="col-md-11">
+                            {% for n in i[5] %}
+                                {{n}} <br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-1">Producer: </label>
+                        <p class="col-md-11">{{i[6][0]}}</p>
                     </div>
                 </div>
-                <br><br><br>
+            </div>
             {% endfor %}
         </div>
         <script type="text/javascript">
@@ -67,22 +74,19 @@
                       console.log("edit:"+chan,"; mov_id:"+mid);
                       if (chan == 'name'){
                         var v = 'c'+pid;
-                        $('#'+v).replaceWith($('<input name="newn" class="inpp" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">ADD</button>'));
-                        //$('#'+v).replaceWith($('<input name="newn" onfocusout=saveit('+v+') type="text" id='+v+'>'));
+                        $('#'+v).replaceWith($('<input name="newn" class="inpp col-md-10" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">ADD</button>'));
                       }
 
                       if (chan == 'yor'){
                         var v = 'c'+pid;
                         console.log(v);
-                        $('#'+v).replaceWith($('<input name="newn" class="inpp" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">ADD</button>'));
-                        //$('#'+v).replaceWith($('<input name="newn" onfocusout=saveit('+v+') type="text" id='+v+'>'));
+                        $('#'+v).replaceWith($('<input name="newn" class="inpp col-md-10" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">ADD</button>'));
                       }
 
                       if (chan == 'bio'){
                         var v = 'c'+pid;
                         console.log(v);
-                        $('#'+v).replaceWith($('<input name="newn" class="inpp" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">ADD</button>'));
-                        //$('#'+v).replaceWith($('<input name="newn" onfocusout=saveit('+v+') type="text" id='+v+'>'));
+                        $('#'+v).replaceWith($('<input name="newn" class="inpp col-md-10" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">ADD</button>'));
                       }
                 });
                 
