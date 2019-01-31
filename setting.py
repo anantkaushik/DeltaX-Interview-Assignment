@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect
-import sqlite3 as sql,os
+import sqlite3 as sql,os,json
 
 app=Flask(__name__)
 app.config["CACHE_TYPE"] = "null"
@@ -95,20 +95,27 @@ def addmovietodb():
     con.close()
     return redirect("/addmovie")
 
-@app.route("/addactor", methods = ['POST'])
-def addactor():
-  if request.method == "POST":
-    name = request.form['namea']
-    sex = request.form['sexa']
-    dob = request.form['doba']
-    bio = request.form['bioa']
-    con=sql.connect("static/imdb.db")
-    cur=con.cursor()
-    cur.execute("INSERT INTO actors (name,sex,DOB,Bio)VALUES (?,?,?,?)",(name,sex,dob,bio)) 
-    con.commit()
-    cur.close()
-    con.close()
-    return redirect("/")
+@app.route('/addActor', methods=['POST'])       #background AJAX function
+def addActor():
+    actorname =  request.form['actorname']
+    sex = request.form['sex']
+    dob = request.form['dob']
+    bio = request.form['bio']
+    conn = sql.connect('static/imdb.db')
+    cur = conn.cursor()
+    cur.execute("INSERT INTO actors (name, sex, DOB, Bio) VALUES (?,?,?,?)",
+                (actorname, sex, dob, bio,))
+    conn.commit()
+    cur.execute("SELECT actorID, name from actors order by actorID desc;")
+    res = cur.fetchone()
+    arr = []
+    for i in res:
+            arr.append(i)
+
+    print(arr)
+    conn.close()
+    
+    return json.dumps({'status':200, 'actorID':arr[0], 'actorName':arr[1]})
 
 @app.route("/addproducer", methods = ['POST'])
 def addproducer():
