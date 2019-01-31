@@ -95,6 +95,29 @@ def addmovietodb():
     con.close()
     return redirect("/movies")
 
+@app.route('/updatemovie', methods = ['GET','POST'])
+def updatemovie():
+        mov_id = request.form['newid']
+        edit = request.form['newn']
+        
+        conn = sql.connect('static/imdb.db')
+        cur = conn.cursor()
+        print(edit[1:-2])
+        if mov_id[1:-2]=='name':
+                cur.execute("UPDATE movies SET name=? WHERE movieID=?",(edit, int(mov_id[-2:]),))
+                conn.commit()
+        elif mov_id[1:-2]=='yor':
+                cur.execute("UPDATE movies SET yearofrelease=? WHERE movieID=?",(edit, int(mov_id[-2:]),))
+                conn.commit()
+        elif mov_id[1:-2]=='bio':
+                cur.execute("UPDATE movies SET plot=? WHERE movieID=?",(edit, int(mov_id[-2:]),))
+                conn.commit()
+        cur.close()
+        conn.close()
+        print(edit,mov_id)
+        #return json.dumps({'status':200, 'edit':edit, 'movid':mov_id})
+        return redirect('/movies')
+        
 @app.route('/addActor', methods=['POST'])       #background AJAX function
 def addActor():
     actorname =  request.form['actorname']

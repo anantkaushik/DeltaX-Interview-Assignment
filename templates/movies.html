@@ -16,6 +16,13 @@
             .col-md-12,.col-md-2{
                 padding: 0;
             }
+            .edit{
+                color: blue;
+            }
+            .edit:hover{
+                cursor: pointer; 
+                text-decoration: underline;
+            }
         </style>
     </head>
     <body>
@@ -32,23 +39,73 @@
         </nav>
         <div class="container">
             {% for i in prod %}
-                <div class="row">
+                <div class="row" id="{{i[4]}}">
                     <img src="/static/images/{{i[3]}}" class="col-md-3" style="max-height:300px;">
                     <div class="col-md-9">
-                        <label>Name: </label> {{i[0]}}
-                        Year of Release: {{i[1]}}<br>
-                        Bio: {{i[2]}}
-                        <br>
-                        <br>
-                        Actors:
-                        {% for n in i[5] %}
-                            {{n}} <br>
-                        {% endfor %}
-                        Producer: {{i[6][0]}}
+                        Name: <p id="cname{{i[4]}}">{{i[0]}}</p>&emsp;<p class="edit" id="name{{i[4]}}">edit</p><br>
+                    Year of Release: <p id="cyor{{i[4]}}">{{i[1]}}&emsp;<p class="edit" id="yor{{i[4]}}">edit</p><br>
+                    Bio: <p id="cbio{{i[4]}}">{{i[2]}}</p>&emsp;<p class="edit" id="bio{{i[4]}}">edit</p>
+                    <br>
+                    <br>
+                    Actors:
+                    {% for n in i[5] %}
+                        {{n}} <br>
+                    {% endfor %}
+                    Producer: {{i[6][0]}}
                     </div>
                 </div>
                 <br><br><br>
             {% endfor %}
         </div>
+        <script type="text/javascript">
+           
+            $(function(){
+                $('.edit').click(function() {
+                      var pid = $(this).attr("id");
+                      chan = pid.slice(0,-2);
+                      mid =  pid.slice(-2,-1);
+                      console.log("edit:"+chan,"; mov_id:"+mid);
+                      if (chan == 'name'){
+                        var v = 'c'+pid;
+                        $('#'+v).replaceWith($('<input name="newn" class="inpp" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">ADD</button>'));
+                        //$('#'+v).replaceWith($('<input name="newn" onfocusout=saveit('+v+') type="text" id='+v+'>'));
+                      }
+
+                      if (chan == 'yor'){
+                        var v = 'c'+pid;
+                        console.log(v);
+                        $('#'+v).replaceWith($('<input name="newn" class="inpp" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">ADD</button>'));
+                        //$('#'+v).replaceWith($('<input name="newn" onfocusout=saveit('+v+') type="text" id='+v+'>'));
+                      }
+
+                      if (chan == 'bio'){
+                        var v = 'c'+pid;
+                        console.log(v);
+                        $('#'+v).replaceWith($('<input name="newn" class="inpp" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">ADD</button>'));
+                        //$('#'+v).replaceWith($('<input name="newn" onfocusout=saveit('+v+') type="text" id='+v+'>'));
+                      }
+                });
+                
+        });
+
+            function tt(){
+                    console.log('ss');   
+                    var newval = document.getElementsByName("newn")[0].value;
+                    var newid = document.getElementsByName("newid")[0].value;
+                    console.log(newval,newid);
+                     $.ajax({
+                          url: '/updatemovie',
+                          data: $('.inpp,#newid').serialize(),
+                          type: 'POST',
+                          success: function(response){
+                            window.location.href = "/movies";
+                          },
+                          error: function(error){
+                            console.log(error);
+                          }
+                   });
+            }
+            
+        </script>
     </body>
 </html>
