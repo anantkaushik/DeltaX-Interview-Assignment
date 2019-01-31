@@ -26,12 +26,18 @@ def getmovies():
   print(prod)
   for i in prod:
     temp = eval(i[-2])
-    i[-2] = []
+    pList = eval(i[-1])
+    print(pList)
+    i[-2],i[-1] = [],[]
     for j in temp:
       cur.execute("select name from actors where actorID = ?",(int(j),))
       ac = cur.fetchone()
       ac = [i for i in ac]
       i[-2].extend(ac)
+    cur.execute("select name from producers where producerID = ?",(pList,))
+    ac = cur.fetchone()
+    ac = [i for i in ac]
+    i[-1].extend(ac)
   print(prod)
   cur.close()
   con.close()
