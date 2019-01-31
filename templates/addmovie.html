@@ -15,33 +15,44 @@
             <br>
             <br>
             <label>Actors:</label>
-            <select name="actors" multiple size="2" required id="actorlist">
+            <select name="actors" multiple size="4" required id="actorlist">
                 {% for i in actor %}
                     <option value="{{i[1]}}">{{i[0]}}</option>
                 {% endfor %}
             </select>
-            <hr>
-                <div >
-      <form>        <h2>Add actor</h2>
-        <input type="text" id="actorname" name="actorname">
-        <select name="sex" id='sex'>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-        <input type="text" id="dob" name="dob" class="form-control">
-        <input type="text" id="bio" name="bio" class="form-control">
-        <button id='mybutton'>ADD</button>
-
-    </div>
-  <hr>
-            
             <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+            <hr>
+            <div >
+                <h2>Add actor</h2>
+                <input type="text" id="actorname" name="actorname">
+                <select name="sex" id='sex'>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                </select>
+                <input type="text" id="dob" name="dob" class="form-control">
+                <input type="text" id="bio" name="bio" class="form-control">
+                <button id='mybutton'>ADD</button>
+            </div>
+            <hr>
             <label>Producer:</label>
-            <select name="producers" required>
+            <select name="producers" required id = "prodlist">
                 {% for i in prod %}
                     <option value="{{i[1]}}">{{i[0]}}</option>
                 {% endfor %}
             </select>
+            <hr>
+            <div >
+                <h2>Add Producer</h2>
+                <input type="text" id="namep" name="namep">
+                <select name="sexp" id='sexp'>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <input type="text" id="dobp" name="dobp" class="form-control">
+                <input type="text" id="biop" name="biop" class="form-control">
+                <button id='prodmybutton'>ADD</button>
+            </div>
+            <hr>
             <br>
             <label>Poster</label>
             <input type="file" name="file" accept="image/*" required>
@@ -49,29 +60,47 @@
             <input type="submit">
         </form>
 
-          <script type="text/javascript">
-    $(function(){
-  $('#mybutton').click(function(){
-    // help - https://stackoverflow.com/questions/39658958/jquery-ajax-serialize-only-2-fields
-    $.ajax({
-      url: '/addActor',
-      data: $('#actorname,#sex,#dob,#bio').serialize(),
-      type: 'POST',
-      success: function(response){
-        $('#actorname').val("");$('#sex').val("");$('#dob').val("");$('#bio').val("");
-        console.log($.parseJSON(response));
-        acID = $.parseJSON(response).actorID
-        acname = $.parseJSON(response).actorName
-        $('#actorlist').append('<option value='+acID+'>'+acname+'</option>');
-        alert('Actor Added');
-      },
-      error: function(error){
-        console.log(error);
-      }
-    });
-  });
-});
-  </script>
+        <script type="text/javascript">
+            $(function(){
+                $('#mybutton').click(function(){
+                    $.ajax({
+                    url: '/addActor',
+                    data: $('#actorname,#sex,#dob,#bio').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        $('#actorname').val("");$('#sex').val("");$('#dob').val("");$('#bio').val("");
+                        console.log($.parseJSON(response));
+                        acID = $.parseJSON(response).actorID
+                        acname = $.parseJSON(response).actorName
+                        $('#actorlist').append('<option value='+acID+'>'+acname+'</option>');
+                        alert('Actor Added');
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                    });
+                });
+
+                $('#prodmybutton').click(function(){
+                    $.ajax({
+                    url: '/addproducer',
+                    data: $('#namep,#sexp,#dobp,#biop').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        $('#namep').val("");$('#sexp').val("");$('#dobp').val("");$('#biop').val("");
+                        console.log($.parseJSON(response));
+                        pID = $.parseJSON(response).prodID
+                        pname = $.parseJSON(response).prodName
+                        $('#prodlist').append('<option value='+pID+'>'+pname+'</option>');
+                        alert('Producer Added');
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                    });
+                });
+            });
+        </script>
     </body>
 
 </html>

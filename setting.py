@@ -110,9 +110,8 @@ def addActor():
     res = cur.fetchone()
     arr = []
     for i in res:
-            arr.append(i)
-
-    print(arr)
+      arr.append(i)
+    cur.close()
     conn.close()
     
     return json.dumps({'status':200, 'actorID':arr[0], 'actorName':arr[1]})
@@ -128,9 +127,14 @@ def addproducer():
     cur=con.cursor()
     cur.execute("INSERT INTO producers (name,sex,DOB,Bio)VALUES (?,?,?,?)",(name,sex,dob,bio)) 
     con.commit()
+    cur.execute("SELECT producerID, name from producers order by producerID desc;")
+    res = cur.fetchone()
+    arr = []
+    for i in res:
+      arr.append(i)
     cur.close()
     con.close()
-    return redirect("/")
+    return json.dumps({'status':200, 'prodID':arr[0], 'prodName':arr[1]})
 
 if __name__=="__main__":
 	app.run(debug=True,port=4000)
