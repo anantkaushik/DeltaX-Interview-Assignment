@@ -17,11 +17,15 @@ def getmovies():
   cur=con.cursor()
   cur.execute("select * from movies") #fetching movies details
   inp=cur.fetchall()
-  inp = [j for i in inp for j in i]
-  cur.execute("select name from producers where producerID = ?",(inp[-1],)) #fetching producer name
-  p = cur.fetchone()
-  p = [i for i in p] 
-  print(inp,p)
+  prod = []
+  for i in inp:
+    temp = []
+    for j in i:
+      temp.append(j)
+    prod.append(temp)
+  print(prod)
+  for i in prod:
+    print(list(prod[-2]))
   cur.close()
   con.close()
   return ("<h1>Welcome</h1>")
@@ -82,9 +86,9 @@ def addmovietodb():
 def addactor():
   if request.method == "POST":
     name = request.form['namea']
-    yor = request.form['sexa']
-    plot = request.form['doba']
-    producers = request.form['bioa']
+    sex = request.form['sexa']
+    dob = request.form['doba']
+    bio = request.form['bioa']
     con=sql.connect("static/imdb.db")
     cur=con.cursor()
     cur.execute("INSERT INTO actors (name,sex,DOB,Bio)VALUES (?,?,?,?)",(name,sex,dob,bio)) 
@@ -97,9 +101,9 @@ def addactor():
 def addproducer():
   if request.method == "POST":
     name = request.form['namep']
-    yor = request.form['sexp']
-    plot = request.form['dobp']
-    producers = request.form['biop']
+    sex = request.form['sexp']
+    dob = request.form['dobp']
+    bio = request.form['biop']
     con=sql.connect("static/imdb.db")
     cur=con.cursor()
     cur.execute("INSERT INTO producers (name,sex,DOB,Bio)VALUES (?,?,?,?)",(name,sex,dob,bio)) 
