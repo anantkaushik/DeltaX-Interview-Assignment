@@ -25,7 +25,14 @@ def getmovies():
     prod.append(temp)
   print(prod)
   for i in prod:
-    print(list(prod[-2]))
+    temp = eval(i[-2])
+    i[-2] = []
+    for j in temp:
+      cur.execute("select name from actors where actorID = ?",(int(j),))
+      ac = cur.fetchone()
+      ac = [i for i in ac]
+      i[-2].extend(ac)
+  print(prod)
   cur.close()
   con.close()
   return ("<h1>Welcome</h1>")
