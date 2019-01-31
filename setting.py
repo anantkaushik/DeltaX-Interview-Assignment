@@ -117,13 +117,15 @@ def updatemovie():
         print(edit,mov_id)
         #return json.dumps({'status':200, 'edit':edit, 'movid':mov_id})
         return redirect('/movies')
-        
+
 @app.route('/addActor', methods=['POST'])       #background AJAX function
 def addActor():
     actorname =  request.form['actorname']
     sex = request.form['sex']
     dob = request.form['dob']
     bio = request.form['bio']
+    if not actorname or not sex or not dob or not bio:
+      return json.dumps({'status':"Value Missing"})
     conn = sql.connect('static/imdb.db')
     cur = conn.cursor()
     cur.execute("INSERT INTO actors (name, sex, DOB, Bio) VALUES (?,?,?,?)",
