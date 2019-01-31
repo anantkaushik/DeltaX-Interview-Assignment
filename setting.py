@@ -9,7 +9,7 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 @app.route("/")
 def home():
-	return ("<h1>Welcome</h1>")
+	return redirect("/movies")
 
 @app.route('/movies')
 def getmovies():
