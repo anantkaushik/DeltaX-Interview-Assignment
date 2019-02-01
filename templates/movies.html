@@ -76,13 +76,15 @@
                       if (chan == 'name'){
                         var v = 'c'+pid;
                         var vall = $('#'+v).text();
-                        $('#'+v).replaceWith($('<input name="newn" class="inpp col-md-10" type="text" id='+v+' value='+vall+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">Save</button>'));
+                        $('#'+v).replaceWith($('<input name="newn" class="inpp col-md-10" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">Save</button>'));
+                        $('#'+v).val(vall);
                       }
 
                       if (chan == 'yor'){
                         var v = 'c'+pid;
                         var vall = $('#'+v).text();
-                        $('#'+v).replaceWith($('<input name="newn" class="inpp col-md-10" type="text" id='+v+' value='+vall+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">Save</button>'));
+                        $('#'+v).replaceWith($('<input name="newn" class="inpp col-md-10" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">Save</button>'));
+                        $('#'+v).val(vall);
                       }
 
                       if (chan == 'bio'){
@@ -90,7 +92,7 @@
                         var vall = $('#'+v).text();
                         console.log(vall);
                         $('#'+v).replaceWith($('<input name="newn" class="inpp col-md-10" type="text" id='+v+'><input hidden name="newid" id="newid" type="text" value='+v+'><button onclick="tt()" id="mybutton">Save</button>'));
-                        var vall = $('#'+v).val(vall);
+                        $('#'+v).val(vall);
                       }
                 });
                 
