@@ -135,41 +135,51 @@
         <script type="text/javascript">
             $(function(){
                 $('#mybutton').click(function(){
-                    $.ajax({
-                    url: '/addActor',
-                    data: $('#actorname,#sex,#dob,#bio').serialize(),
-                    type: 'POST',
-                    success: function(response){
-                        $('#actorname').val("");$('#sex').val("");$('#dob').val("");$('#bio').val("");
-                        console.log($.parseJSON(response));
-                        acID = $.parseJSON(response).actorID
-                        acname = $.parseJSON(response).actorName
-                        $('#actorlist').append('<option value='+acID+'>'+acname+'</option>');
-                        alert('Actor Added');
-                    },
-                    error: function(error){
-                        console.log(error);
+                    if(!$("#actorname").val() || !$("#sex").val() || !$("#dob").val() || !$("#bio").val()){
+                        alert('Actor Information is incomplete');
                     }
-                    });
+                    else{
+                        $.ajax({
+                        url: '/addActor',
+                        data: $('#actorname,#sex,#dob,#bio').serialize(),
+                        type: 'POST',
+                        success: function(response){
+                            $('#actorname').val("");$('#sex').val("");$('#dob').val("");$('#bio').val("");
+                            console.log($.parseJSON(response));
+                            acID = $.parseJSON(response).actorID
+                            acname = $.parseJSON(response).actorName
+                            $('#actorlist').append('<option value='+acID+'>'+acname+'</option>');
+                            alert('Actor Added');
+                        },
+                        error: function(error){
+                            console.log(error);
+                        }
+                        });
+                    }
                 });
 
                 $('#prodmybutton').click(function(){
-                    $.ajax({
-                    url: '/addproducer',
-                    data: $('#namep,#sexp,#dobp,#biop').serialize(),
-                    type: 'POST',
-                    success: function(response){
-                        $('#namep').val("");$('#sexp').val("");$('#dobp').val("");$('#biop').val("");
-                        console.log($.parseJSON(response));
-                        pID = $.parseJSON(response).prodID
-                        pname = $.parseJSON(response).prodName
-                        $('#prodlist').append('<option value='+pID+'>'+pname+'</option>');
-                        alert('Producer Added');
-                    },
-                    error: function(error){
-                        console.log(error);
+                    if(!$("#namep").val() || !$("#sexp").val() || !$("#dobp").val() || !$("#biop").val()){
+                        alert('Producer Information is incomplete');
                     }
-                    });
+                    else{
+                        $.ajax({
+                        url: '/addproducer',
+                        data: $('#namep,#sexp,#dobp,#biop').serialize(),
+                        type: 'POST',
+                        success: function(response){
+                            $('#namep').val("");$('#sexp').val("");$('#dobp').val("");$('#biop').val("");
+                            console.log($.parseJSON(response));
+                            pID = $.parseJSON(response).prodID
+                            pname = $.parseJSON(response).prodName
+                            $('#prodlist').append('<option value='+pID+'>'+pname+'</option>');
+                            alert('Producer Added');
+                        },
+                        error: function(error){
+                            console.log(error);
+                        }
+                        });
+                    }
                 });
             });
             function ac(){

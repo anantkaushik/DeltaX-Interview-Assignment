@@ -126,7 +126,7 @@ def addActor():
     bio = request.form['bio']
     if actorname == "" or sex == "" or dob == "" or bio == "":
       print(actorname=="")
-      return json.dumps({'status': 500})
+      return json.dumps({'status': 400})
     conn = sql.connect('static/imdb.db')
     cur = conn.cursor()
     cur.execute("INSERT INTO actors (name, sex, DOB, Bio) VALUES (?,?,?,?)",
